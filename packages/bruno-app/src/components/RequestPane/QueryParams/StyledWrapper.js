@@ -29,6 +29,9 @@ const Wrapper = styled.div`
     &:nth-child(1) {
       padding: 0 0 0 8px;
     }
+    &:nth-child(3) {
+      width: 100px;
+    }
   }
 
   .btn-add-param {
