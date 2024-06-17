@@ -122,7 +122,7 @@ function getFilesString(request) {
 }
 
 const curlToJson = (curlCommand) => {
-  const request = parseCurlCommand(curlCommand);
+  const request = parseCurlCommand(curlCommand.replace(/\\([[\]{}])/g, '$1').replace('+', '%20'));
 
   if (!request?.url) {
     return null;
