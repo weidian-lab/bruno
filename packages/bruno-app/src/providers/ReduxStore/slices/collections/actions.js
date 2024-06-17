@@ -710,7 +710,10 @@ export const newHttpRequest = (params) => (dispatch, getState) => {
     }
 
     const parts = splitOnFirst(requestUrl, '?');
-    const params = parseQueryParams(parts[1]);
+    const params = parseQueryParams(parts[1]).map((p) => ({
+      type: 'query',
+      ...p
+    }));
     each(params, (urlParam) => {
       urlParam.enabled = true;
     });

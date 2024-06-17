@@ -11,7 +11,7 @@ import {
   updatePathParam,
   updateQueryParam
 } from 'providers/ReduxStore/slices/collections';
-import SingleLineEditor from 'components/SingleLineEditor';
+import { CodeEditorBar, SingleLineEditor } from 'components/index';
 import { saveRequest, sendRequest } from 'providers/ReduxStore/slices/collections/actions';
 
 import StyledWrapper from './StyledWrapper';
@@ -151,6 +151,25 @@ const QueryParams = ({ item, collection }) => {
                       </td>
                       <td>
                         <div className="flex items-center">
+                          <CodeEditorBar
+                            types={['json', 'text']}
+                            value={decodeURIComponent(param.value)}
+                            theme={storedTheme}
+                            onSave={onSave}
+                            onChange={(newValue) =>
+                              handleQueryParamChange(
+                                {
+                                  target: {
+                                    value: encodeURIComponent(newValue)
+                                  }
+                                },
+                                param,
+                                'value'
+                              )
+                            }
+                            onRun={handleRun}
+                            collection={collection}
+                          />
                           <input
                             type="checkbox"
                             checked={param.enabled}
