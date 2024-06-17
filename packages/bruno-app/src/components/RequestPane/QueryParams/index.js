@@ -12,7 +12,7 @@ import {
   moveQueryParam,
   updatePathParam
 } from 'providers/ReduxStore/slices/collections';
-import SingleLineEditor from 'components/SingleLineEditor';
+import { CodeEditorBar, SingleLineEditor } from 'components/index';
 import { saveRequest, sendRequest } from 'providers/ReduxStore/slices/collections/actions';
 
 import StyledWrapper from './StyledWrapper';
@@ -56,7 +56,7 @@ const QueryParams = ({ item, collection }) => {
       }
     }
 
-    const queryParam = cloneDeep(data);
+    let queryParam = cloneDeep(data);
 
     if (queryParam[key] === value) {
       return;
@@ -74,15 +74,15 @@ const QueryParams = ({ item, collection }) => {
   };
 
   const handlePathParamChange = (e, data) => {
-    const value = e.target.value;
+    let value = e.target.value;
 
-    const pathParam = cloneDeep(data);
+    let pathParam = cloneDeep(data);
 
-    if (pathParam.value === value) {
+    if (pathParam['value'] === value) {
       return;
     }
 
-    pathParam.value = value;
+    pathParam['value'] = value;
 
     dispatch(
       updatePathParam({
@@ -154,6 +154,25 @@ const QueryParams = ({ item, collection }) => {
                     </td>
                     <td>
                       <div className="flex items-center">
+                        <CodeEditorBar
+                          types={['json', 'text']}
+                          value={decodeURIComponent(param.value)}
+                          theme={storedTheme}
+                          onSave={onSave}
+                          onChange={(newValue) =>
+                            handleQueryParamChange(
+                              {
+                                target: {
+                                  value: encodeURIComponent(newValue)
+                                }
+                              },
+                              param,
+                              'value'
+                            )
+                          }
+                          onRun={handleRun}
+                          collection={collection}
+                        />
                         <input
                           type="checkbox"
                           checked={param.enabled}

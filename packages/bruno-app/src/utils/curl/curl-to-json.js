@@ -75,7 +75,7 @@ function getDataString(request) {
   if (singularData) {
     const data = {};
     data[repr(request.data)] = '';
-    return { data: data };
+    return { data };
   } else {
     return getMultipleDataString(request, parsedQueryString);
   }
@@ -93,7 +93,7 @@ function getMultipleDataString(request, parsedQueryString) {
     }
   }
 
-  return { data: data };
+  return { data };
 }
 
 function getFilesString(request) {
@@ -124,7 +124,7 @@ function getFilesString(request) {
 }
 
 const curlToJson = (curlCommand) => {
-  const request = parseCurlCommand(curlCommand);
+  const request = parseCurlCommand(curlCommand.replace(/\\([[\]{}])/g, '$1').replace('+', '%20'));
 
   const requestJson = {};
 
