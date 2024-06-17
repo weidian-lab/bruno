@@ -53,7 +53,7 @@ const QueryParams = ({ item, collection }) => {
       }
     }
 
-    let queryParam = cloneDeep(data);
+    const queryParam = cloneDeep(data);
 
     if (queryParam[key] === value) {
       return;
@@ -71,15 +71,15 @@ const QueryParams = ({ item, collection }) => {
   };
 
   const handlePathParamChange = (e, data) => {
-    let value = e.target.value;
+    const value = e.target.value;
 
-    let pathParam = cloneDeep(data);
+    const pathParam = cloneDeep(data);
 
-    if (pathParam['value'] === value) {
+    if (pathParam.value === value) {
       return;
     }
 
-    pathParam['value'] = value;
+    pathParam.value = value;
 
     dispatch(
       updatePathParam({
