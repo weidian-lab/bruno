@@ -28,7 +28,7 @@ const Wrapper = styled.div`
       }
 
       &:nth-child(3) {
-        width: 70px;
+        width: 100px;
       }
     }
   }
