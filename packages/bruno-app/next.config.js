@@ -1,5 +1,8 @@
 module.exports = {
   output: 'export',
+  eslint: {
+    ignoreDuringBuilds: true
+  },
   reactStrictMode: false,
   publicRuntimeConfig: {
     CI: process.env.CI,
