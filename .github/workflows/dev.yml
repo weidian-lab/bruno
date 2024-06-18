@@ -1,13 +1,9 @@
-name: weidian-build
+name: dev
 
-# on:
-#   push:
-#     branches:
-#       - weidian
 on:
-  release:
-    types:
-      - created
+  push:
+    branches:
+      - weidian
 
 env:
   TZ: Asia/Shanghai
@@ -41,9 +37,3 @@ jobs:
 
       - name: List build
         run: ls -la packages/bruno-electron/out
-
-      - name: Upload release
-        uses: shogo82148/actions-upload-release-asset@v1
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: packages/bruno-electron/out/bruno*
