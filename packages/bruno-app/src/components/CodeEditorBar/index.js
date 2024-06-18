@@ -23,7 +23,7 @@ const CodeEditorBar = ({ types, value, theme, onChange, collection }) => {
       setCachedValue(newValue);
       onChange(encodeURIComponent(newValue));
     }, 300),
-    []
+    [onChange]
   );
 
   return (
