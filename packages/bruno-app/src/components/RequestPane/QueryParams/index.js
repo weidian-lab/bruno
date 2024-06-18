@@ -11,7 +11,7 @@ import {
   updatePathParam,
   updateQueryParam
 } from 'providers/ReduxStore/slices/collections';
-import { CodeEditorBar, SingleLineEditor } from 'components';
+import { CodeEditorBar, SingleLineEditor } from 'components/index';
 import { saveRequest, sendRequest } from 'providers/ReduxStore/slices/collections/actions';
 
 import StyledWrapper from './StyledWrapper';

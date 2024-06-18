@@ -2,7 +2,7 @@ import { useEffect, useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { debounce, get } from 'lodash';
 import toast from 'react-hot-toast';
-import { Modal, CodeEditor } from 'components';
+import { Modal, CodeEditor } from 'components/index';
 import StyledWrapper from './StyledWrapper';
 
 const CodeEditorModal = ({ mode, value, theme, collection, onClose, onChange }) => {
