@@ -33,9 +33,7 @@ jobs:
         run: npm run build:electron:mac
 
       - name: List build
-        run: rm -rf packages/bruno-electron/out/mac && \
-          rm -rf packages/bruno-electron/out/mac-arm64 && \
-          ls -la packages/bruno-electron/out
+        run: ls -la packages/bruno-electron/out
 
       - name: Upload release
         uses: shogo82148/actions-upload-release-asset@v1
