@@ -152,7 +152,7 @@ const QueryParams = ({ item, collection }) => {
                       <td>
                         <div className="flex items-center">
                           <CodeEditorBar
-                            types={['json']}
+                            types={['json', 'text']}
                             value={param.value}
                             theme={storedTheme}
                             onSave={onSave}
