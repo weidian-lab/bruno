@@ -332,7 +332,9 @@ export default class CodeEditor extends React.Component {
     this.variables = variables;
 
     defineCodeMirrorBrunoVariablesMode(variables, mode);
-    this.editor.setOption('mode', 'brunovariables');
+    if (mode !== 'application/ld+json') {
+      this.editor.setOption('mode', 'brunovariables');
+    }
   };
 
   _onEdit = () => {
