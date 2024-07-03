@@ -10,6 +10,7 @@ import {
   deleteFormUrlEncodedParam
 } from 'providers/ReduxStore/slices/collections';
 import MultiLineEditor from 'components/MultiLineEditor';
+import { CodeEditorBar } from 'components/index';
 import { sendRequest, saveRequest } from 'providers/ReduxStore/slices/collections/actions';
 import StyledWrapper from './StyledWrapper';
 
@@ -47,7 +48,7 @@ const FormUrlEncodedParams = ({ item, collection }) => {
     }
     dispatch(
       updateFormUrlEncodedParam({
-        param: param,
+        param,
         itemUid: item.uid,
         collectionUid: collection.uid
       })
@@ -115,6 +116,25 @@ const FormUrlEncodedParams = ({ item, collection }) => {
                     </td>
                     <td>
                       <div className="flex items-center">
+                        <CodeEditorBar
+                          types={['json', 'text']}
+                          value={param.value}
+                          theme={storedTheme}
+                          onSave={onSave}
+                          onChange={(newValue) =>
+                            handleParamChange(
+                              {
+                                target: {
+                                  value: newValue
+                                }
+                              },
+                              param,
+                              'value'
+                            )
+                          }
+                          onRun={handleRun}
+                          collection={collection}
+                        />
                         <input
                           type="checkbox"
                           checked={param.enabled}
