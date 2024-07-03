@@ -11,6 +11,7 @@ import {
   moveFormUrlEncodedParam
 } from 'providers/ReduxStore/slices/collections';
 import MultiLineEditor from 'components/MultiLineEditor';
+import { CodeEditorBar } from 'components/index';
 import { sendRequest, saveRequest } from 'providers/ReduxStore/slices/collections/actions';
 import StyledWrapper from './StyledWrapper';
 import ReorderTable from 'components/ReorderTable/index';
@@ -127,6 +128,25 @@ const FormUrlEncodedParams = ({ item, collection }) => {
                   </td>
                   <td>
                     <div className="flex items-center">
+                      <CodeEditorBar
+                        types={['json', 'text']}
+                        value={param.value}
+                        theme={storedTheme}
+                        onSave={onSave}
+                        onChange={(newValue) =>
+                          handleParamChange(
+                            {
+                              target: {
+                                value: newValue
+                              }
+                            },
+                            param,
+                            'value'
+                          )
+                        }
+                        onRun={handleRun}
+                        collection={collection}
+                      />
                       <input
                         type="checkbox"
                         checked={param.enabled}
