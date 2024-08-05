@@ -34,7 +34,6 @@ const execPromise = (command) => {
   return new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
       if (error) {
-        console.log(error, 'error');
         reject(error);
         return;
       }
@@ -102,13 +101,13 @@ const registerRendererEventHandlers = (mainWindow, watcher, lastOpenedCollection
     try {
       switch (process.platform) {
         case 'darwin':
-          await execPromise(`open -a Terminal ${args.pathName}`);
+          await execPromise(`open -a Terminal ${args.pathname}`);
           break;
         case 'win32':
-          await execPromise(`start cmd /K "cd /d ${args.path}"`);
+          await execPromise(`start cmd /K "cd /d ${args.pathname}"`);
           break;
         case 'linux':
-          await execPromise(`xdg-open ${args.path}`);
+          await execPromise(`xdg-open ${args.pathname}`);
           break;
         default:
           throw new Error('Unsupported platform');
