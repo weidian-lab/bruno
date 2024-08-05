@@ -175,7 +175,7 @@ const CollectionItem = ({ item, collection, searchText }) => {
     const { ipcRenderer } = window;
 
     return new ((resolve, reject) => {
-      ipcRenderer.invoke('open-terminal', { pathName: pathname }).then(resolve).catch(reject);
+      ipcRenderer.invoke('open-terminal', { pathname }).then(resolve).catch(reject);
     })();
   };
 
