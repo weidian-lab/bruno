@@ -97,11 +97,14 @@ const registerRendererEventHandlers = (mainWindow, watcher, lastOpenedCollection
     }
   );
 
-  ipcMain.handle('open-terminal', async (event, args) => {
+  ipcMain.handle('open-terminal', async (event, pathname) => {
     try {
       switch (process.platform) {
         case 'darwin':
-          await execPromise(`open -a Terminal ${args.pathname}`);
+          await execPromise(`open -a Terminal ${pathname}`);
+          break;
+        case 'win32':
+          await execPromise(`start cmd /K "cd /d ${pathname}"`);
           break;
         default:
           throw new Error('Unsupported platform');
