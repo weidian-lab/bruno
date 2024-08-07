@@ -171,6 +171,14 @@ const CollectionItem = ({ item, collection, searchText }) => {
     }
   }
 
+  const openTerminal = (pathname) => {
+    const { ipcRenderer } = window;
+
+    return new ((resolve, reject) => {
+      ipcRenderer.invoke('open-terminal', pathname).then(resolve).catch(reject);
+    })();
+  };
+
   // we need to sort request items by seq property
   const sortRequestItems = (items = []) => {
     return items.sort((a, b) => a.seq - b.seq);
@@ -367,6 +375,14 @@ const CollectionItem = ({ item, collection, searchText }) => {
                   Settings
                 </div>
               )}
+              <div
+                className="dropdown-item"
+                onClick={(e) => {
+                  openTerminal(item.pathname);
+                }}
+              >
+                Open Terminal
+              </div>
             </Dropdown>
           </div>
         </div>
