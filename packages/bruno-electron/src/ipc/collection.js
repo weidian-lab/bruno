@@ -18,6 +18,7 @@ const {
 const { openCollectionDialog } = require('../app/collections');
 const { generateUidBasedOnHash, stringifyJson, safeParseJSON, safeStringifyJSON } = require('../utils/common');
 const { moveRequestUid, deleteRequestUid } = require('../cache/requestUids');
+const { exec } = require('child_process');
 const { deleteCookiesForDomain, getDomainsWithCookies } = require('../utils/cookies');
 const EnvironmentSecretsStore = require('../store/env-secrets');
 
@@ -27,6 +28,18 @@ const envHasSecrets = (environment = {}) => {
   const secrets = _.filter(environment.variables, (v) => v.secret);
 
   return secrets && secrets.length > 0;
+};
+
+const execPromise = (command) => {
+  return new Promise((resolve, reject) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(stdout.trim());
+    });
+  });
 };
 
 const registerRendererEventHandlers = (mainWindow, watcher, lastOpenedCollections) => {
@@ -83,6 +96,24 @@ const registerRendererEventHandlers = (mainWindow, watcher, lastOpenedCollection
       }
     }
   );
+
+  ipcMain.handle('open-terminal', async (event, pathname) => {
+    try {
+      switch (process.platform) {
+        case 'darwin':
+          await execPromise(`open -a Terminal ${pathname}`);
+          break;
+        case 'win32':
+          await execPromise(`start cmd /K "cd /d ${pathname}"`);
+          break;
+        default:
+          throw new Error('Unsupported platform');
+      }
+      return 'Terminal opened successfully';
+    } catch (error) {
+      throw new Error('Failed to open terminal: ' + error.message);
+    }
+  });
   // clone collection
   ipcMain.handle(
     'renderer:clone-collection',

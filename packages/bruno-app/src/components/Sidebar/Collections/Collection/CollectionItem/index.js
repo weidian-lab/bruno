@@ -367,6 +367,14 @@ const CollectionItem = ({ item, collection, searchText }) => {
                   Settings
                 </div>
               )}
+              <div
+                className="dropdown-item"
+                onClick={(e) => {
+                  window.ipcRenderer.invoke('open-terminal', item.pathname)
+                }}
+              >
+                Open Terminal
+              </div>
             </Dropdown>
           </div>
         </div>
