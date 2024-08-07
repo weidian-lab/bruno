@@ -379,6 +379,14 @@ const CollectionItem = ({ item, collection, searchText }) => {
                   Settings
                 </div>
               )}
+              <div
+                className="dropdown-item"
+                onClick={(e) => {
+                  window.ipcRenderer.invoke('open-file', item.pathname)
+                }}
+              >
+                Open File
+              </div>
             </Dropdown>
           </div>
         </div>
