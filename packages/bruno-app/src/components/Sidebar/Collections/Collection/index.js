@@ -228,6 +228,15 @@ const Collection = ({ collection, searchText }) => {
             >
               Settings
             </div>
+            <div
+              className="dropdown-item"
+              onClick={(e) => {
+                menuDropdownTippyRef.current.hide();
+                window.ipcRenderer.invoke('open-terminal', collection.pathname)
+              }}
+            >
+              Open Terminal
+            </div>
           </Dropdown>
         </div>
       </div>
