@@ -378,6 +378,7 @@ const CollectionItem = ({ item, collection, searchText }) => {
               <div
                 className="dropdown-item"
                 onClick={(e) => {
+                  dropdownTippyRef.current.hide();
                   openTerminal(item.pathname);
                 }}
               >

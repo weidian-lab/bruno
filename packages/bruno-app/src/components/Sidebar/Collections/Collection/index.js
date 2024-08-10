@@ -89,6 +89,14 @@ const Collection = ({ collection, searchText }) => {
     );
   };
 
+  const openTerminal = (pathname) => {
+    const { ipcRenderer } = window;
+
+    return new ((resolve, reject) => {
+      ipcRenderer.invoke('open-terminal', pathname).then(resolve).catch(reject);
+    })();
+  };
+
   const [{ isOver }, drop] = useDrop({
     accept: `COLLECTION_ITEM_${collection.uid}`,
     drop: (draggedItem) => {
@@ -227,6 +235,15 @@ const Collection = ({ collection, searchText }) => {
               }}
             >
               Settings
+            </div>
+            <div
+              className="dropdown-item"
+              onClick={(e) => {
+                menuDropdownTippyRef.current.hide();
+                openTerminal(collection.pathname);
+              }}
+            >
+              Open Terminal
             </div>
           </Dropdown>
         </div>
