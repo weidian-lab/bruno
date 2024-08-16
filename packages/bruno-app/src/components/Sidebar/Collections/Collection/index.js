@@ -92,9 +92,9 @@ const Collection = ({ collection, searchText }) => {
   const openTerminal = (pathname) => {
     const { ipcRenderer } = window;
 
-    return new ((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       ipcRenderer.invoke('open-terminal', pathname).then(resolve).catch(reject);
-    })();
+    });
   };
 
   const [{ isOver }, drop] = useDrop({
