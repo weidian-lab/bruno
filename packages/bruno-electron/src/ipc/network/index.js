@@ -39,10 +39,11 @@ const Oauth2Store = require('../../store/oauth2');
 const iconv = require('iconv-lite');
 const FormData = require('form-data');
 const { createFormData } = prepareRequest;
+const JSONbigNative = require('json-bigint')({ useNativeBigInt: true });
 
 const safeStringifyJSON = (data) => {
   try {
-    return JSON.stringify(data);
+    return JSONbigNative.stringify(data);
   } catch (e) {
     return data;
   }
@@ -50,7 +51,7 @@ const safeStringifyJSON = (data) => {
 
 const safeParseJSON = (data) => {
   try {
-    return JSON.parse(data);
+    return JSONbigNative.parse(data);
   } catch (e) {
     return data;
   }

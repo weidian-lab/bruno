@@ -1,6 +1,7 @@
 const os = require('os');
 const { get, each, filter, compact, forOwn } = require('lodash');
 const decomment = require('decomment');
+const JSONbigNative = require('json-bigint')({ useNativeBigInt: true });
 const FormData = require('form-data');
 const fs = require('fs');
 const path = require('path');
@@ -398,10 +399,16 @@ const prepareRequest = (item, collection) => {
     if (!contentTypeDefined) {
       axiosRequest.headers['content-type'] = 'application/json';
     }
+    let jsonBody;
     try {
-      axiosRequest.data = decomment(request?.body?.json);
+      jsonBody = decomment(request?.body?.json);
     } catch (error) {
-      axiosRequest.data = request?.body?.json;
+      jsonBody = request?.body?.json;
+    }
+    try {
+      axiosRequest.data = JSONbigNative.stringify(JSONbigNative.parse(jsonBody));
+    } catch (error) {
+      axiosRequest.data = jsonBody;
     }
   }
 
