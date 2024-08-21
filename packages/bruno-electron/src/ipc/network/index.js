@@ -38,6 +38,7 @@ const {
 } = require('./oauth2-helper');
 const Oauth2Store = require('../../store/oauth2');
 const iconv = require('iconv-lite');
+const JSONbigNative = require('json-bigint')({ useNativeBigInt: true });
 
 // override the default escape function to prevent escaping
 Mustache.escape = function (value) {
@@ -46,7 +47,7 @@ Mustache.escape = function (value) {
 
 const safeStringifyJSON = (data) => {
   try {
-    return JSON.stringify(data);
+    return JSONbigNative.stringify(data);
   } catch (e) {
     return data;
   }
@@ -54,7 +55,7 @@ const safeStringifyJSON = (data) => {
 
 const safeParseJSON = (data) => {
   try {
-    return JSON.parse(data);
+    return JSONbigNative.parse(data);
   } catch (e) {
     return data;
   }
