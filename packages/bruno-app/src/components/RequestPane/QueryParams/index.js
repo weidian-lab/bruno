@@ -215,6 +215,7 @@ const QueryParams = ({ item, collection }) => {
                 ))
               : null}
           </ReorderTable>
+          <tfoot style={{ height: '60px' }}></tfoot>
         </Table>
 
         <div className="flex justify-between mt-2">
