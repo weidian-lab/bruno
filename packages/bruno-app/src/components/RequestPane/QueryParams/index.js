@@ -189,6 +189,7 @@ const QueryParams = ({ item, collection }) => {
                 ))
               : null}
           </ReorderTable>
+          <tfoot style={{ height: '60px' }}></tfoot>
         </Table>
 
         <button className="btn-add-param text-link pr-2 py-3 mt-2 select-none" onClick={handleAddQueryParam}>
