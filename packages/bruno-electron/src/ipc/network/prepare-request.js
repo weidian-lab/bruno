@@ -1,5 +1,6 @@
 const { get, each, filter, find } = require('lodash');
 const decomment = require('decomment');
+const JSONbigNative = require('json-bigint')({ useNativeBigInt: true });
 const crypto = require('node:crypto');
 const fs = require('node:fs/promises');
 const { getTreePathFromCollectionToItem, mergeHeaders, mergeScripts, mergeVars, getFormattedCollectionOauth2Credentials, mergeAuth } = require('../../utils/collection');
@@ -346,10 +347,16 @@ const prepareRequest = async (item, collection = {}, abortController) => {
     if (!contentTypeDefined) {
       axiosRequest.headers['content-type'] = 'application/json';
     }
+    let jsonBody;
     try {
-      axiosRequest.data = decomment(request?.body?.json);
+      jsonBody = decomment(request?.body?.json);
     } catch (error) {
-      axiosRequest.data = request?.body?.json;
+      jsonBody = request?.body?.json;
+    }
+    try {
+      axiosRequest.data = JSONbigNative.stringify(JSONbigNative.parse(jsonBody));
+    } catch (error) {
+      axiosRequest.data = jsonBody;
     }
   }
 
